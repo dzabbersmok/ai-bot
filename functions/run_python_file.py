@@ -1,6 +1,7 @@
 import os
 import subprocess
 
+
 def run_python_file(working_directory: str, file_path: str, args: list[str] | None = None) -> str:
     try:
         if file_path[-3:] != ".py":
@@ -34,4 +35,26 @@ def run_python_file(working_directory: str, file_path: str, args: list[str] | No
     except Exception as e:
         return f"Error: executing Python file: {e}"
 
-print(run_python_file("calculator", "lorem.txt"))
+
+schema_run_python_file = {
+    "type": "function",
+    "function": {
+        "name": "run_python_file",
+        "description": "Executes a Python file within the working directory and returns the output from the interpreter.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "file_path": {
+                    "type": "string",
+                    "description": "Path to the Python file to run, relative to the working directory",
+                },
+                "args": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Optional arguments to pass to the Python file."
+                }
+            },
+            "required": ["file_path"],
+        },
+    },
+}
